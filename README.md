@@ -1,0 +1,1 @@
+Jogo de pixel art 16x16 pixels topdown criado como estudo da Godot engine versão 4.2.2. Créditos ao DevBandeira (https://www.youtube.com/@DevBandeira) em nível de projeto e Game Endeavor pelos assets (https://game-endeavor.itch.io/mystic-woods)
