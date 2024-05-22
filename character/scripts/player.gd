@@ -14,6 +14,7 @@ var is_atk: bool = false
 @export var animation_tree: AnimationTree = null
 
 func _ready():
+	animation_tree.active = true
 	state_machine = animation_tree["parameters/playback"]
 
 func _physics_process(delta):
@@ -65,3 +66,8 @@ func _on_atk_timer_timeout():
 	set_physics_process(true)
 	is_atk = false
 	
+
+
+func _on_atk_area_body_entered(_body):
+	if _body.is_in_group("enemy"):
+		_body.update_health(randi_range(1, 5))
