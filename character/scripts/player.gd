@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var state_machine
 var is_atk: bool = false
-
+var is_dead: bool = false
 
 @export_category("Variables")
 @export var move_speed: float = 64.0
@@ -18,6 +18,9 @@ func _ready():
 	state_machine = animation_tree["parameters/playback"]
 
 func _physics_process(delta):
+	if is_dead:
+		return
+		
 	move()
 	atk()
 	animate()
@@ -68,6 +71,12 @@ func _on_atk_timer_timeout():
 	
 
 
-func _on_atk_area_body_entered(_body):
-	if _body.is_in_group("enemy"):
-		_body.update_health(randi_range(1, 5))
+func _on_atk_area_body_entered(body):
+	if body.is_in_group("enemy"):
+		body.update_health()
+
+func die():
+	is_dead = true
+	state_machine.travel("Death")
+	await get_tree().create_timer(2.0).timeout
+	get_tree().reload_current_scene()
